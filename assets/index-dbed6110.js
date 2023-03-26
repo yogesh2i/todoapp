@@ -382,7 +382,7 @@ button{
       border-radius: 50px;
     }
   }
-`;function Rg(){const[e,t]=$.useState(!1);return L(Eg,{children:L(Tg,{children:se(Cg,{children:[L(xu,{path:"/login",element:L(Ng,{checker:l=>{t(l)},current:e})}),L(xu,{path:"/",element:L(_g,{Component:R0,login:e,logDetail:l=>{t(!l)}})})]})})})}const Tg=Xn.div`
+`;function Rg(){const[e,t]=$.useState(!1);return L(Eg,{children:L(Tg,{children:se(Cg,{children:[L(xu,{path:"/login",element:L(Ng,{checker:l=>{t(l)},current:e})}),L(xu,{path:"*",element:L(_g,{Component:R0,login:e,logDetail:l=>{t(!l)}})})]})})})}const Tg=Xn.div`
 *{
   margin: 0;
   padding: 0;
