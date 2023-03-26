@@ -3,6 +3,6 @@ import react from '@vitejs/plugin-react'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "/todoapp/login",
+  base: "/todoapp/",
   plugins: [react()],
 })
