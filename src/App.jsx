@@ -16,7 +16,7 @@ function App() {
     setLoggedIn(res)
  }
   return (
-    <HashRouter basename="/">
+    <HashRouter basename="/todoapp">
    <Container>
     <Routes>
      <Route path="/login" element={<Login checker={checkFunc} current={LoggedIn}/>}/>
