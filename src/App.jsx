@@ -16,7 +16,7 @@ function App() {
     setLoggedIn(res)
  }
   return (
-    <HashRouter basename="/">
+    <BrowserRouter basename="/">
    <Container>
     <Routes>
      <Route exact path="/login" element={<Login checker={checkFunc} current={LoggedIn}/>}/>
@@ -25,7 +25,7 @@ function App() {
 
     </Routes>
    </Container>
-    </HashRouter>
+    </BrowserRouter>
   )
 }
 
