@@ -20,7 +20,7 @@ function App() {
    <Container>
     <Routes>
      <Route path="/login" element={<Login checker={checkFunc} current={LoggedIn}/>}/>
-      <Route path="*" element={<ProtectedRoute Component={Home} login={LoggedIn} logDetail={logDetail}/>}/>
+      <Route path="/" element={<ProtectedRoute Component={Home} login={LoggedIn} logDetail={logDetail}/>}/>
     
 
     </Routes>
