@@ -19,8 +19,8 @@ function App() {
     <HashRouter basename="/todoapp">
    <Container>
     <Routes>
-     <Route path="/login" element={<Login checker={checkFunc} current={LoggedIn}/>}/>
-      <Route path="/" element={<ProtectedRoute Component={Home} login={LoggedIn} logDetail={logDetail}/>}/>
+     <Route exact path="/login" element={<Login checker={checkFunc} current={LoggedIn}/>}/>
+      <Route exact path="/" element={<ProtectedRoute Component={Home} login={LoggedIn} logDetail={logDetail}/>}/>
     
 
     </Routes>
