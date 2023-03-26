@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Home from "./Components/Home";
-import {BrowserRouter,Routes,Route} from "react-router-dom"
+import {BrowserRouter,Routes,Route, HashRouter} from "react-router-dom"
 import ProtectedRoute from "./Components/ProtectedRoute";
 import Login from "./Components/Login";
 import { useState } from "react";
@@ -16,7 +16,7 @@ function App() {
     setLoggedIn(res)
  }
   return (
-    <BrowserRouter>
+    <HashRouter basename="/">
    <Container>
     <Routes>
      <Route path="/login" element={<Login checker={checkFunc} current={LoggedIn}/>}/>
@@ -25,7 +25,7 @@ function App() {
 
     </Routes>
    </Container>
-    </BrowserRouter>
+    </HashRouter>
   )
 }
 
