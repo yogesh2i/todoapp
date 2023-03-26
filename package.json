@@ -1,9 +1,12 @@
 {
   "name": "todo-app",
+  "homepage":"https:/yogesh2i.github.io/TODO-App",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "dev": "vite --host",
     "build": "vite build",
     "preview": "vite preview"
