@@ -1,18 +1,19 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router';
+import { login } from '../App';
 
 export default function ProtectedRoute(props) {
-    const {Component,login,logDetail} = props;
+    const {Component} = props;
+    let {LoggedIn} = useContext(login);
     let navigate = useNavigate();
     useEffect(()=>{
-        if(!login){
+        if(!LoggedIn){
             navigate('/login')
         }
-       
-    },[props])
+    },[LoggedIn])
   return (
     <div>
-     <Component logDetail={logDetail} login={login}/>
+     <Component/>
     </div>
   )
 }

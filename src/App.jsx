@@ -1,35 +1,38 @@
 import styled from "styled-components";
 import Home from "./Components/Home";
-import {BrowserRouter,Routes,Route, HashRouter} from "react-router-dom"
+import {Routes,Route, HashRouter} from "react-router-dom"
 import ProtectedRoute from "./Components/ProtectedRoute";
 import Login from "./Components/Login";
-import { useState } from "react";
+import { createContext, useState } from "react";
+import Welcome from "./Components/Welcome";
 
 
+export const login = createContext(null);
 
 function App() {
-  const [LoggedIn,setLoggedIn] = useState(false)
-  const logDetail=(val)=>{
-    setLoggedIn(!val)
-  }
- const checkFunc=(res)=>{
-    setLoggedIn(res)
- }
+  const [LoggedIn,setLoggedIn] = useState(false);
+  const [oldUser, setUser] = useState(false);
+ 
+ 
   return (
     <HashRouter basename="/">
    <Container>
+      <login.Provider value={{LoggedIn,setLoggedIn,setUser,oldUser}}>
     <Routes>
-     <Route exact path="/login" element={<Login checker={checkFunc} current={LoggedIn}/>}/>
-      <Route exact path="/" element={<ProtectedRoute Component={Home} login={LoggedIn} logDetail={logDetail}/>}/>
-    
-
+     <Route exact path="/login" element={<Login />}/>
+       <Route exact path="/" element={<Welcome/>} />
+      <Route exact path="/home" element={<ProtectedRoute Component={Home} />}>
+     </Route>
+     
     </Routes>
+      </login.Provider>
    </Container>
     </HashRouter>
   )
 }
 
 export default App;
+
 const Container = styled.div`
 *{
   margin: 0;

@@ -1,6 +1,6 @@
 {
   "name": "todo-app",
-  "homepage":"https://yogesh2i.github.io/todoapp",
+  "homepage": "https://yogesh2i.github.io/todoapp",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "react": "^18.2.0",
+    "react-bootstrap": "^2.7.2",
     "react-dom": "^18.2.0",
     "react-icons": "^4.8.0",
     "react-router": "^6.9.0",

@@ -1,25 +1,71 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
+import { login } from "../App";
 import image from "./logo.jpeg";
 
-export default function Login({ checker, current }) {
-  const [oldUser, setUser] = useState(false);
+
+export default function Login() {
+  const ref = useRef();
+  const [show, setShow] = useState(false)
+  const [pass, setPass] = useState("");
+  const { setLoggedIn, oldUser, setUser } = useContext(login);
   const navigate = useNavigate();
-  const checkLogin = () => {
-    checker(true);
-  };
-  const handleSign = () => {
-    setUser(!oldUser);
-  };
-  useEffect(() => {
-    let login = current;
-    if (login) {
-      navigate("/");
+  let login1 = (localStorage.getItem("userInfo") === null ? "" : JSON.parse(localStorage.getItem("userInfo")).loginUser);
+
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    let info = (Object.fromEntries(new FormData(e.target)));
+
+    if (!oldUser) {
+      if (pass == info.userPassword) {
+        setLoggedIn(true);
+        let data = { ...info, loginUser: true };
+        localStorage.setItem("userInfo", JSON.stringify(data));
+        navigate("/");
+      } else {
+        ref.current.style.border = "3px solid red"
+        setShow(true)
+      }
+    } else {
+      let email = JSON.parse(localStorage.getItem("userInfo")).userEmail;
+      let password = JSON.parse(localStorage.getItem("userInfo")).userPassword;
+      if (email === info.userEmail && password === info.userPassword) {
+        setLoggedIn(true);
+        let data = { ...info, loginUser: true };
+        localStorage.setItem("userInfo", JSON.stringify(data));
+        navigate("/home");
+      } else {
+        alert("Credentials didn`t matched.")
+      }
     }
-  });
+  }
+
+
+  const handleReset = () => {
+    let cnfrm = confirm("Your all data will be lost.")
+    if (cnfrm) {
+      localStorage.clear();
+      setUser(false)
+      navigate("/")
+    }
+  }
+  useEffect(() => {
+    if (login1 !== "") {
+      if (login1) {
+        setLoggedIn(true);
+        navigate("/home");
+      } else if (!login1) {
+        setUser(true);
+      }
+    }
+  }, [])
+
+
   return (
     <Container>
+
       <div className="cont">
         <div className="top__logo">
           <img src={image} alt="OUR REMINDER" />
@@ -30,33 +76,43 @@ export default function Login({ checker, current }) {
 
           <h3>OUR REMINDER</h3>
         </div>
-        <form className="form__login">
-          {oldUser ? null : <input type="text" placeholder="Enter Your Name" />}
+        <form className="form__login" onSubmit={(e) => { handleSubmit(e) }} id="form">
+
           <input
             type="email"
             placeholder="Enter Your Email"
-            autoComplete="username"
+            autoComplete="useremail"
+            required
+            name="userEmail"
           />
           <input
             type="password"
             placeholder="Enter your Password"
             autoComplete="current-password"
+            required
+            minLength={3}
+            name="userPassword"
           />
+
           {oldUser ? null : (
-            <input
-              type="password"
-              placeholder="Confirm your Password"
-              autoComplete="current-password"
-            />
+            <>
+
+              <input
+                type="password"
+
+                placeholder="Confirm your Password"
+                autoComplete="confirm-password"
+                required
+                minLength={3}
+                ref={ref}
+                onChange={(e) => { setPass(e.target.value) }}
+              />
+              {show && <div style={{ color: "red", textAlign: "left", fontSize: "0.8rem", position: "relative", top: "-3vh" }}><span style={{ marginLeft: "10vw" }}>*Password didn`t match.</span></div>}
+            </>
+
           )}
           <div className="optional">
-            <input
-              type="checkbox"
-              onClick={() => {
-                checkLogin();
-              }}
-            />
-            <span>Use Without Login</span>
+            {oldUser ? <span style={{ color: "red", cursor: "pointer" }} onClick={handleReset}>Reset Credentials?</span> : null}
             <button type="submit">{oldUser ? "Sign In" : "Register"}</button>
           </div>
         </form>
@@ -66,7 +122,7 @@ export default function Login({ checker, current }) {
               Dont have an account?
               <span
                 style={{ color: "red", cursor: "pointer" }}
-                onClick={handleSign}
+                onClick={() => setUser(!oldUser)}
               >
                 Sign Up
               </span>
@@ -76,7 +132,7 @@ export default function Login({ checker, current }) {
               Already have an account?
               <span
                 style={{ color: "red", cursor: "pointer" }}
-                onClick={handleSign}
+                onClick={() => setUser(!oldUser)}
               >
                 Sign In
               </span>
@@ -108,11 +164,6 @@ const Container = styled.div`
   }
   .form__login {
     margin-top: 1.5rem;
-    input[type="checkbox"] {
-      display: inline;
-      margin: 0;
-      width: auto;
-    }
     input {
       margin: auto;
       width: 80%;
@@ -132,10 +183,11 @@ const Container = styled.div`
   }
   .optional {
     text-align: center;
-    margin-top: 1rem;
+    margin-top: 3rem;
     padding-bottom: 2rem;
     button {
       font-size: 1.2rem;
+      cursor: pointer;
       display: block;
       margin: auto;
       margin-top: 2rem;

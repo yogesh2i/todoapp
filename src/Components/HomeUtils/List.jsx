@@ -1,12 +1,11 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { AiOutlineEdit, AiOutlineDelete} from "react-icons/ai";
-import {FcFullTrash } from "react-icons/fc";
+import { AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
+import { FcFullTrash } from "react-icons/fc";
 import Add from "./Add";
 import image from "./plus-circle.png";
 
 function List() {
-  // let list = [{task:"hi",checked:false},{task:"hello",checked:false},{task:"buffalo",checked:false}]
   let list = JSON.parse(window.localStorage.getItem("user"));
   const [task, setTask] = useState(list == null ? [] : list);
   const [edit, setEdit] = useState(false);
@@ -77,9 +76,11 @@ function List() {
   };
 
   //deleting all
-  const clearAll =()=>{
-       window.localStorage.removeItem("user");
-       setTask([])
+  const clearAll = () => {
+    if (confirm("All items will be deleted.")) {
+      window.localStorage.removeItem("user");
+      setTask([])
+    }
   }
   return (
     <Container>
@@ -90,9 +91,9 @@ function List() {
           <p>Tasks list</p>
           <div className="list-box">
             <div className="head">
-              <img onClick={() => addTask()} src={image} alt="Add"/>
-              <FcFullTrash onClick={() => clearAll()} style={{width:"24px",height:"24px"}}></FcFullTrash>
-              
+              <img onClick={() => addTask()} src={image} alt="Add" style={{ cursor: 'pointer' }} />
+              <FcFullTrash onClick={() => clearAll()} style={{ width: "24px", height: "24px", cursor: 'pointer' }}></FcFullTrash>
+
             </div>
             <div className="list__content">
               <div>
@@ -124,13 +125,12 @@ function List() {
                             </div>
                           </div>
                           <input
-                           
+
                             id={i}
                             type="text"
                             style={{
-                              textDecoration: `${
-                                item.checked ? "line-through" : "none"
-                              }`,
+                              textDecoration: `${item.checked ? "line-through" : "none"
+                                }`,
                             }}
                             value={item.task}
                             onChange={(e) => {
@@ -174,7 +174,6 @@ const Container = styled.div`
     background: #ffffff;
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.25);
     border-radius: 24px;
-
     .head {
       display: flex;
       justify-content: space-between;
@@ -183,7 +182,6 @@ const Container = styled.div`
         font-weight: 400;
       }
     }
-
     .list__content {
       margin-top: 12px;
       padding-bottom: 2px;
@@ -202,13 +200,11 @@ const Container = styled.div`
           .options {
             span {
               margin-right: 8px;
+              cursor: pointer;
             }
           }
         }
         input {
-          
-         
-      
          width: inherit;
           outline: none;
           cursor: default;

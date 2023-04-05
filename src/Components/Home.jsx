@@ -3,12 +3,13 @@ import Clock from "./HomeUtils/Clock"
 import List from "./HomeUtils/List"
 import Profile from "./HomeUtils/Profile"
 
-export default function Home({logDetail}) {
+export default function Home() {
+ 
+ 
   return (
     <>
     <div style={{backgroundColor:"white",minHeight:"100vh",maxHeight:"100%",paddingBottom:"1rem"}}>
-
-    <Profile logDetail={logDetail}/>
+    <Profile />
    <Clock/>
    <List/>
     </div>

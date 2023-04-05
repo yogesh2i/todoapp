@@ -1,9 +1,8 @@
 import React, { useRef } from "react";
 import styled from "styled-components";
 
-export default function Add({ getValue, display }) {
+export default function Add({ getValue }) {
   const ref = useRef();
-
   const saveTask = () => {
     getValue(ref.current.value, "hide");
   };
@@ -48,6 +47,7 @@ const Container = styled.div`
       justify-content: space-between;
       margin-top: 2rem;
       button {
+        cursor: pointer;
         padding: 2px;
         background-color: burlywood;
         border-radius: 20%;
