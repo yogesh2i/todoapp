@@ -8,11 +8,14 @@ export default function Add({ getValue }) {
   const ref = useRef();
   const saveTask = () => {
     let time;
-    if (hour < 10 || minute < 10) {
-      time = `0${hour}:0${minute} ${am}`
+    if (hour < 10) {
+      time = `0${hour}:${minute} ${am}`
     }
-    else {
+    else if(minute<10) {
+      time = `${hour}:0${minute} ${am}`
+    }else{
       time = `${hour}:${minute} ${am}`
+
     }
     getValue(ref.current.value, time, "hide");
   };
@@ -25,13 +28,29 @@ export default function Add({ getValue }) {
     let time = e.target.value;
     switch (t) {
       case "hr":
-        setHour(time)
+        if(time>12||time<0){
+          alert("Please enter time correctly")
+        }else{
+
+          setHour(time)
+        }
         break;
       case "min":
-        setMinutes(time);
+        if(time.length<3){
+          if(time>59||time<0){
+            alert("Please enter time correctly")
+          }else{
+            
+            setMinutes(time)
+          }
+        }
         break;
       default:
-        setAm("AM");
+        if(am=="PM"){
+          setAm("AM");
+        }else{
+          setAm("PM")
+        }
         break;
     }
   }
@@ -40,9 +59,9 @@ export default function Add({ getValue }) {
     <Container>
       <div className="box">
         <input type="text" ref={ref} autoFocus onKeyDown={(e) => { e.key == "Enter" ? saveTask() : null }} />
-        <span style={{ lineHeight: "4rem" }}>Set Time: <input type="number" min={1} max={12} style={{ width: '3rem', display: 'inline' }} value={hour} onChange={(e) => timeset(e, "hr")} />:<input type="number" min={0} max={59} style={{ width: '3rem', display: 'inline' }} value={minute} onChange={(e) => timeset(e, "min")} /><span style={{ cursor: "pointer" }} onClick={(e) => timeset(e, "am")}>{am}</span></span>
+        <span style={{ lineHeight: "4rem" }}>Set Time: <input type="number" min={1} max={12} style={{ width: '3rem', display: 'inline' }} value={hour} onChange={(e) => timeset(e, "hr")} />:<input  type="number" min={0} max={59} style={{ width: '3rem', display: 'inline' }} value={minute} onChange={(e) => timeset(e, "min")} /><span style={{ cursor: "pointer" }} onClick={(e) => timeset(e, "am")}>{am}</span></span>
         <div className="button__box">
-          <button onClick={() => cancelTask()}>cancel</button>
+          <button onClick={() => cancelTask()}>Cancel</button>
           <button onClick={() => saveTask()}>Save</button>
         </div>
       </div>
