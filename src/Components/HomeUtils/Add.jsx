@@ -28,12 +28,13 @@ export default function Add({ getValue }) {
     let time = e.target.value;
     switch (t) {
       case "hr":
+        if(time.length<3){
         if(time>12||time<0){
           alert("Please enter time correctly")
         }else{
-
           setHour(time)
         }
+      }
         break;
       case "min":
         if(time.length<3){
