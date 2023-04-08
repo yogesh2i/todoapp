@@ -37,7 +37,7 @@ export default function Welcome() {
         <p>Fill Your Details Please</p>
         <hr />
         <form onSubmit={(e) => handleFormSubmit(e)}>
-          <label htmlFor="getimg"><img alt="preview image" src={image !== null ? image : "https://cdn4.iconfinder.com/data/icons/gray-user-management/512/photo-512.png"} className="imgprev" />
+          <label htmlFor="getimg"><img  alt="preview image" src={image !== null ? image : "https://cdn4.iconfinder.com/data/icons/gray-user-management/512/photo-512.png"} className="imgprev" />
             <input type="file" onChange={onImageChange} id='getimg' style={{ display: "none" }} />
           </label>
           <label htmlFor="name">

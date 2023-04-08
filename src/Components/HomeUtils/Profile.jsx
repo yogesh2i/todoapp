@@ -4,6 +4,7 @@ import { login } from '../../App';
 import { useNavigate } from 'react-router';
 
 function Profile() {
+  
   const navigate = useNavigate();
   const [profile, setProfile] = useState(null);
   const { setLoggedIn, setUser } = useContext(login);
@@ -16,13 +17,15 @@ function Profile() {
   }
   useEffect(() => {
     let userProfile = JSON.parse(localStorage.getItem("userProfile"));
+    console.log(userProfile.image);
     setProfile(userProfile);
-  }, [])
+   
+  },[])
   return (
     <Container>
       <div className="profile-rectangle">
         <div className="profile-info">
-          <img src={(profile !== null && profile.image !== null) ? `${profile.image}` : 'https://tse1.mm.bing.net/th?id=OIP.5AVIoRYOTm3XEwgA-R0PFAHaHa&pid=Api&P=0'} alt="photo" className="photo" />
+          <img  src={(profile !== null && profile.image !== null) ? `${profile.image}` : 'https://tse1.mm.bing.net/th?id=OIP.5AVIoRYOTm3XEwgA-R0PFAHaHa&pid=Api&P=0'} alt="photo" className="photo" />
           <p className="name">{profile !== null ? `${profile.profileName}` : "User"}</p>
           <p className="userId">{profile !== null ? `${profile.profileUser}` : "User@123"}</p>
           <div>
