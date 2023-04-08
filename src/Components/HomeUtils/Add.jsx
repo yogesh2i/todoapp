@@ -1,23 +1,51 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
 
 export default function Add({ getValue }) {
+  const [hour, setHour] = useState('00');
+  const [minute, setMinutes] = useState('00');
+  const [am, setAm] = useState('AM');
   const ref = useRef();
   const saveTask = () => {
-    getValue(ref.current.value, "hide");
+    let time;
+    if (hour < 10 || minute < 10) {
+      time = `0${hour}:0${minute} ${am}`
+    }
+    else {
+
+      time = `${hour}:${minute} ${am}`
+    }
+    getValue(ref.current.value, time, "hide");
   };
   const cancelTask = () => {
     ref.current.value = "";
-    getValue(ref.current.value, "hide");
+    getValue(ref.current.value, '00:00', "hide");
   };
+
+  const timeset = (e, t) => {
+    let time = e.target.value;
+    if (t == "hr") {
+      setHour(time)
+    } else if (t == "min") {
+      setMinutes(time)
+    } else {
+      if (am == "AM") {
+        setAm("PM");
+      } else {
+        setAm("AM");
+      }
+    }
+
+  }
 
   return (
     <Container>
       <div className="box">
-        <input type="text" ref={ref} autoFocus  onKeyDown={(e)=>{e.key=="Enter"?saveTask():null}} />
+        <input type="text" ref={ref} autoFocus onKeyDown={(e) => { e.key == "Enter" ? saveTask() : null }} />
+        <span style={{ lineHeight: "4rem" }}>Set Time: <input type="number" min={1} max={12} style={{ width: '3rem', display: 'inline' }} value={hour} onChange={(e) => timeset(e, "hr")} />:<input type="number" min={0} max={60} style={{ width: '3rem', display: 'inline' }} value={minute} onChange={(e) => timeset(e, "min")} /><span style={{ cursor: "pointer" }} onClick={(e) => timeset(e, "am")}>{am}</span></span>
         <div className="button__box">
-          <button onClick={() => saveTask()}>Save</button>
           <button onClick={() => cancelTask()}>cancel</button>
+          <button onClick={() => saveTask()}>Save</button>
         </div>
       </div>
     </Container>

@@ -6,13 +6,13 @@ import { useNavigate } from 'react-router';
 function Profile() {
   const navigate = useNavigate();
   const [profile, setProfile] = useState(null);
-  const { setLoggedIn, setUser } = useContext(login)
+  const { setLoggedIn, setUser } = useContext(login);
   const handleLogout = () => {
     let info = JSON.parse(localStorage.getItem("userInfo"));
     let data = { ...info, loginUser: false }
-    localStorage.setItem("userInfo", JSON.stringify(data))
+    localStorage.setItem("userInfo", JSON.stringify(data));
     setLoggedIn(false);
-    setUser(true)
+    setUser(true);
   }
   useEffect(() => {
     let userProfile = JSON.parse(localStorage.getItem("userProfile"));

@@ -63,9 +63,9 @@ function List() {
     setAdd(true);
   };
 
-  const getValue = (val, show) => {
+  const getValue = (val,time, show) => {
     if (val !== "") {
-      let arr = [...task, { task: val, checked: false }];
+      let arr = [...task, { task: val,time : time, checked: false }];
       window.localStorage.setItem("user", JSON.stringify(arr));
       setTask(arr);
     }
@@ -79,7 +79,7 @@ function List() {
   const clearAll = () => {
     if (confirm("All items will be deleted.")) {
       window.localStorage.removeItem("user");
-      setTask([])
+      setTask([]);
     }
   }
   return (
@@ -103,6 +103,8 @@ function List() {
                       return (
                         <li key={i}>
                           <div>
+                            <span>
+
                             <input
                               type="checkbox"
                               name="checkbox"
@@ -110,7 +112,9 @@ function List() {
                               onClick={() => {
                                 handleCheck(i);
                               }}
-                            />
+                              />
+                              <span style={{fontSize: "0.8rem"}}>&nbsp; {item.time}</span>
+                              </span>
                             <div className="options">
                               <span
                                 onClick={() => {
