@@ -20,8 +20,8 @@ function App() {
       <login.Provider value={{LoggedIn,setLoggedIn,setUser,oldUser}}>
     <Routes>
      <Route exact path="/login" element={<Login />}/>
-       <Route exact path="/" element={<Welcome/>} />
-      <Route exact path="/home" element={<ProtectedRoute Component={Home} />}>
+       <Route exact path="/welcome" element={<Welcome/>} />
+      <Route exact path="/" element={<ProtectedRoute Component={Home} />}>
      </Route>
      
     </Routes>

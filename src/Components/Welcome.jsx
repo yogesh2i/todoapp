@@ -37,7 +37,8 @@ export default function Welcome() {
     e.preventDefault();
     let info = (Object.fromEntries(new FormData(e.target)));
     localStorage.setItem("userProfile", JSON.stringify({ ...info, image }));
-    navigate('/home');
+    navigate('/');
+    window.location.reload();
 
   }
 
@@ -57,7 +58,7 @@ export default function Welcome() {
             <input type="text" id='username' name='profileUser' placeholder='Create UserName' required minLength={3} />
           </label>
           <div className="buttons">
-            <button onClick={() => navigate("/home")}>Skip</button>
+            <button onClick={() => {navigate("/"); window.location.reload();}}>Skip</button>
             <button type='submit'>Enter</button>
 
           </div>

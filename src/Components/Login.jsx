@@ -23,7 +23,7 @@ export default function Login() {
         setLoggedIn(true);
         let data = { ...info, loginUser: true };
         localStorage.setItem("userInfo", JSON.stringify(data));
-        navigate("/");
+        navigate("/welcome");
       } else {
         ref.current.style.border = "3px solid red"
         setShow(true)
@@ -35,7 +35,8 @@ export default function Login() {
         setLoggedIn(true);
         let data = { ...info, loginUser: true };
         localStorage.setItem("userInfo", JSON.stringify(data));
-        navigate("/home");
+        navigate("/");
+        window.location.reload();
       } else {
         alert("Credentials didn`t matched.")
       }
@@ -48,14 +49,14 @@ export default function Login() {
     if (cnfrm) {
       localStorage.clear();
       setUser(false)
-      navigate("/")
+      navigate("/login")
     }
   }
   useEffect(() => {
     if (login1 !== "") {
       if (login1) {
         setLoggedIn(true);
-        navigate("/home");
+        navigate("/");
       } else if (!login1) {
         setUser(true);
       }

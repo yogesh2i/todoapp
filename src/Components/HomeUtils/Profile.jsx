@@ -4,16 +4,18 @@ import { login } from '../../App';
 import { useNavigate } from 'react-router';
 
 function Profile() {
-  
   const navigate = useNavigate();
   const [profile, setProfile] = useState(null);
   const { setLoggedIn, setUser } = useContext(login);
+
   const handleLogout = () => {
     let info = JSON.parse(localStorage.getItem("userInfo"));
     let data = { ...info, loginUser: false }
     localStorage.setItem("userInfo", JSON.stringify(data));
     setLoggedIn(false);
     setUser(true);
+   
+    
   }
   useEffect(() => {
     let userProfile = JSON.parse(localStorage.getItem("userProfile"));
@@ -28,7 +30,7 @@ function Profile() {
           <p className="name">{profile !== null ? `${profile.profileName}` : "User"}</p>
           <p className="userId">{profile !== null ? `${profile.profileUser}` : "User@123"}</p>
           <div>
-            <button onClick={() => { navigate('/') }}>Edit Profile</button>
+            <button onClick={() => { navigate('/welcome') }}>Edit Profile</button>
             <button onClick={() => { handleLogout() }}>Log Out</button>
           </div>
         </div>
