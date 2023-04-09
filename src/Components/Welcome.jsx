@@ -6,7 +6,10 @@ import { login } from '../App';
 
 
 export default function Welcome() {
-  const [image, setImage] = useState(null)
+  let userProfile = JSON.parse(localStorage.getItem("userProfile"));
+  const [image, setImage] = useState(null);
+  const [name,setName] = useState(userProfile!==null?userProfile.profileName:"")
+  const [userName,setUserName] = useState(userProfile!==null?userProfile.profileUser:"")
   let navigate = useNavigate();
   let { LoggedIn } = useContext(login);
   useEffect(() => {
@@ -48,14 +51,14 @@ export default function Welcome() {
         <p>Fill Your Details Please</p>
         <hr />
         <form onSubmit={(e) => handleFormSubmit(e)}>
-          <label htmlFor="getimg"><img  alt="preview image" src={image !== null ? image : "https://cdn4.iconfinder.com/data/icons/gray-user-management/512/photo-512.png"} className="imgprev" />
+          <label htmlFor="getimg"><img  alt="preview image" src={image !== null ? image : userProfile!==null?userProfile.image:"https://cdn4.iconfinder.com/data/icons/gray-user-management/512/photo-512.png"} className="imgprev" />
             <input type="file" onChange={onImageChange} accept="image/*" id='getimg' style={{ display: "none" }} />
           </label>
           <label htmlFor="name">
-            <input type="text" id='name' name='profileName' placeholder='Enter your Name' autoCapitalize='words' required minLength={3} />
+            <input type="text" id='name' name='profileName' placeholder='Enter your Name' autoCapitalize='words' required minLength={3} value={name} onChange={(e)=>setName(e.target.value)}/>
           </label>
           <label htmlFor="username">
-            <input type="text" id='username' name='profileUser' placeholder='Create UserName' required minLength={3} />
+            <input type="text" id='username' name='profileUser' placeholder='Create UserName' required minLength={3} value={userName} onChange={(e)=>setUserName(e.target.value)}/>
           </label>
           <div className="buttons">
             <button onClick={() => {navigate("/"); window.location.reload();}}>Skip</button>
