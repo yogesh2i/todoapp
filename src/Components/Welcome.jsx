@@ -48,7 +48,7 @@ export default function Welcome() {
         <hr />
         <form onSubmit={(e) => handleFormSubmit(e)}>
           <label htmlFor="getimg"><img  alt="preview image" src={image !== null ? image : "https://cdn4.iconfinder.com/data/icons/gray-user-management/512/photo-512.png"} className="imgprev" />
-            <input type="file" onChange={onImageChange} id='getimg' style={{ display: "none" }} />
+            <input type="file" onChange={onImageChange} accept="image/*" id='getimg' style={{ display: "none" }} />
           </label>
           <label htmlFor="name">
             <input type="text" id='name' name='profileName' placeholder='Enter your Name' autoCapitalize='words' required minLength={3} />
