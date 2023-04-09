@@ -17,7 +17,6 @@ function Profile() {
   }
   useEffect(() => {
     let userProfile = JSON.parse(localStorage.getItem("userProfile"));
-    console.log(userProfile.image);
     setProfile(userProfile);
    
   },[])

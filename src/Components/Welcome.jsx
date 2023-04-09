@@ -18,11 +18,21 @@ export default function Welcome() {
 
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
-      let url = (URL.createObjectURL(event.target.files[0]));
-      setImage(url);
+      const file = event.target.files[0];
+      getBase64(file).then(base64 => {
+        setImage(base64);
+      });
     }
   }
 
+  const getBase64 = (file) => {
+    return new Promise((resolve,reject) => {
+       const reader = new FileReader();
+       reader.onload = () => resolve(reader.result);
+       reader.onerror = error => reject(error);
+       reader.readAsDataURL(file);
+    });
+  }
   const handleFormSubmit = (e) => {
     e.preventDefault();
     let info = (Object.fromEntries(new FormData(e.target)));
