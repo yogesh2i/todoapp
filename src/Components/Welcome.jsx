@@ -7,7 +7,7 @@ import { login } from '../App';
 
 export default function Welcome() {
   let userProfile = JSON.parse(localStorage.getItem("userProfile"));
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState(userProfile!==null?userProfile.image:"https://tse1.mm.bing.net/th?id=OIP.5AVIoRYOTm3XEwgA-R0PFAHaHa&pid=Api&P=0");
   const [name,setName] = useState(userProfile!==null?userProfile.profileName:"")
   const [userName,setUserName] = useState(userProfile!==null?userProfile.profileUser:"")
   let navigate = useNavigate();
